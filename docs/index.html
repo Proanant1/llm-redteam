@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Creator Hub — Music · Design · AI · Research</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1A2340;
+      --gold:   #C5973A;
+      --ivory:  #F8F5EF;
+      --charcoal: #2E2E2E;
+      --muted:  #6B6B6B;
+      --white:  #FFFFFF;
+      --rule:   #D6CFC2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--ivory);
+      color: var(--charcoal);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+      border-bottom: 2px solid var(--gold);
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      color: var(--white);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+    }
+    .nav-brand span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: #CBD5E1; text-decoration: none;
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 80px 5% 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 40%, #243058 0%, transparent 70%);
+      pointer-events: none;
+    }
+    /* Decorative horizontal rule lines */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 800px;
+      border: 1px solid rgba(197,151,58,0.08);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 780px; }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(197,151,58,0.4);
+      padding: 6px 18px;
+      margin-bottom: 1.8rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.4rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero p {
+      font-size: 1.1rem; font-weight: 300;
+      color: #A8B5CC;
+      max-width: 560px; margin: 0 auto 2.8rem;
+      line-height: 1.75;
+    }
+    .hero-cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--navy);
+      padding: 14px 32px; font-weight: 600; font-size: 0.9rem;
+      text-decoration: none; letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: #d4a84a; transform: translateY(-1px); }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.3); color: var(--white);
+      padding: 14px 32px; font-weight: 500; font-size: 0.9rem;
+      text-decoration: none; letter-spacing: 0.05em;
+      transition: border-color 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
+
+    /* ── VENTURE CARDS ── */
+    .ventures {
+      padding: 100px 5%;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .section-header {
+      text-align: center; margin-bottom: 60px;
+    }
+    .section-label {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; color: var(--navy);
+      line-height: 1.2;
+    }
+    .section-rule {
+      width: 48px; height: 2px; background: var(--gold);
+      margin: 1.2rem auto 0;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+    }
+    .card {
+      background: var(--white);
+      padding: 44px 36px;
+      border-top: 3px solid transparent;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+    .card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(26,35,64,0.1);
+    }
+    .card-icon {
+      font-size: 2.2rem; margin-bottom: 1.4rem;
+      display: block;
+    }
+    .card-label {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem; font-weight: 700; color: var(--navy);
+      margin-bottom: 0.85rem;
+    }
+    .card p {
+      font-size: 0.92rem; color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      background: var(--navy);
+      padding: 100px 5%;
+    }
+    .about-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center;
+    }
+    .about-text .section-label { color: var(--gold); }
+    .about-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 700; color: var(--white);
+      margin: 0.6rem 0 1.4rem;
+      line-height: 1.25;
+    }
+    .about-text p {
+      color: #A8B5CC; font-size: 1rem;
+      line-height: 1.8; margin-bottom: 1.2rem;
+    }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    }
+    .stat-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(197,151,58,0.15);
+      padding: 32px 28px;
+      transition: background 0.2s;
+    }
+    .stat-box:hover { background: rgba(197,151,58,0.07); }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem; font-weight: 900;
+      color: var(--gold); line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em;
+      color: #7A8FAD; text-transform: uppercase;
+    }
+
+    /* ── CONTACT ── */
+    .contact {
+      padding: 100px 5%;
+      max-width: 700px; margin: 0 auto;
+      text-align: center;
+    }
+    .contact h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700; color: var(--navy);
+      margin: 0.6rem 0 1rem;
+    }
+    .contact p {
+      color: var(--muted); font-size: 1rem;
+      line-height: 1.75; margin-bottom: 2.5rem;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%; padding: 14px 18px;
+      border: 1px solid var(--rule); background: var(--white);
+      font-family: 'Inter', sans-serif; font-size: 0.95rem;
+      color: var(--charcoal);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--gold); }
+    .contact-form textarea { resize: vertical; min-height: 140px; }
+    .contact-form .btn-primary { align-self: flex-start; cursor: pointer; border: none; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal);
+      padding: 40px 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    footer .nav-brand { font-size: 1rem; }
+    footer p {
+      font-size: 0.8rem; color: #888;
+    }
+    .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+    .footer-links a {
+      font-size: 0.8rem; color: #888; text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px; background: var(--rule);
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .about-stats { grid-template-columns: 1fr; }
+    }
+
+    /* ── SCROLL FADE IN ── */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">The<span>Creator</span>Hub</a>
+  <ul class="nav-links">
+    <li><a href="#ventures">Ventures</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Music · Design · AI · Research</span>
+    <h1>Creating at the<br/><em>intersection</em> of<br/>art &amp; technology</h1>
+    <p>A multi-venture creator building music on YouTube, handcrafted sticker designs, intelligent RAG-powered bots, and pushing the boundaries of independent research.</p>
+    <div class="hero-cta-group">
+      <a href="#ventures" class="btn-primary">Explore the Work</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- VENTURES -->
+<section class="ventures" id="ventures">
+  <div class="section-header fade-up">
+    <span class="section-label">What I Do</span>
+    <h2>Four Ventures, One Vision</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card fade-up">
+      <span class="card-icon">🎵</span>
+      <div class="card-label">YouTube Music</div>
+      <h3>Music Channel</h3>
+      <p>Original compositions, curated playlists, and music content crafted for an audience that values depth, mood, and artistry. Subscribe and be part of the journey.</p>
+    </div>
+    <div class="card fade-up">
+      <span class="card-icon">🎨</span>
+      <div class="card-label">Sticker Design</div>
+      <h3>Artisan Stickers</h3>
+      <p>Hand-conceived sticker designs where every illustration tells a story. From pop culture tributes to abstract expressions — wearable art for everyday life.</p>
+    </div>
+    <div class="card fade-up">
+      <span class="card-icon">🤖</span>
+      <div class="card-label">AI Engineering</div>
+      <h3>RAG Bot Building</h3>
+      <p>Retrieval-Augmented Generation bots that turn your documents and data into intelligent conversational agents. Custom-built for real-world knowledge retrieval.</p>
+    </div>
+    <div class="card fade-up">
+      <span class="card-icon">🔬</span>
+      <div class="card-label">Independent Research</div>
+      <h3>Research & Exploration</h3>
+      <p>Curiosity-driven inquiry into emerging technologies, AI systems, and the cultural intersections that shape how we create and communicate in the modern world.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-text fade-up">
+      <span class="section-label">About</span>
+      <h2>Building things that matter across every medium</h2>
+      <p>I'm a creator who refuses to be confined to a single lane. Whether I'm composing a track, sketching a sticker, architecting an AI pipeline, or deep in a research paper — the drive is the same: to make something genuinely useful and memorable.</p>
+      <p>Each venture feeds the others. Music informs aesthetic sensibility. Design sharpens communication. AI work opens new creative tools. Research grounds everything in rigor.</p>
+    </div>
+    <div class="about-stats fade-up">
+      <div class="stat-box">
+        <div class="stat-number">∞</div>
+        <div class="stat-label">Creative Curiosity</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">4</div>
+        <div class="stat-label">Active Ventures</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">RAG</div>
+        <div class="stat-label">AI Expertise</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">YT</div>
+        <div class="stat-label">Music Channel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <span class="section-label fade-up">Get in Touch</span>
+  <h2 class="fade-up">Let's build something together</h2>
+  <p class="fade-up">Interested in a collaboration, a custom RAG bot, sticker commission, or just want to connect? Send a message below.</p>
+  <div class="contact-form fade-up">
+    <input type="text" placeholder="Your Name" />
+    <input type="email" placeholder="Your Email" />
+    <textarea placeholder="Tell me about your project or idea…"></textarea>
+    <button class="btn-primary" onclick="this.textContent='Message Sent ✓'; this.style.background='#3a7d44'; this.style.color='#fff';">Send Message</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="nav-brand" href="#">The<span style="color:var(--gold)">Creator</span>Hub</a>
+  <p>© 2026 — Music · Design · AI · Research</p>
+  <ul class="footer-links">
+    <li><a href="#ventures">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
